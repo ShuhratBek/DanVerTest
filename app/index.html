@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="testApp" ng-controller="MainCtrl as mc">
+    <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="reg-block">
+      <div class="title">
+        Зарегестрироваться в mir-ndv
+        <a href="#" class="close">x</a>
+      </div>
+      <div class="soc-in">
+        Войти через аккаунт социальных сетей
+      </div>
+      <div class="login-title">
+        Создайте аккаунт на MIR-NDV
+      </div>
+      <div class="alert alert-danger" ng-show="mc.alert">
+        {{mc.alert}}
+      </div>
+      <div class="login-form">
+        <form name="regForm" ng-submit="regForm.$valid && mc.register()">
+          <div class="input-box">
+            <div class="input-ico a">
+              <input name="login" value="login" ng-model="mc.reg.login" onblur="if(this.value=='') this.value='login';" onfocus="if(this.value=='login') this.value='';" type="email" ng-minlength="4" required ng-pattern="/^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,7}$/i" />
+            </div>
+          </div>
+          <div class="help-block" ng-messages="regForm.login.$error" ng-show="regForm.login.$dirty">
+            <div ng-message="required" ng-show="regForm.login.$error.required && !regForm.login.$error.minlength && !regForm.login.$error.login && !regForm.login.$error.pattern">Required</div>
+            <div ng-message="minlength" ng-show="!regForm.login.$error.required && regForm.login.$error.minlength && !regForm.login.$error.login && !regForm.login.$error.pattern">Min 4 characters</div>
+            <div ng-message="login" ng-show="!regForm.login.$error.required && !regForm.login.$error.minlength && regForm.login.$error.login">Not valid</div>
+            <div ng-message="pattern" ng-show="!regForm.login.$error.required && !regForm.login.$error.minlength && regForm.login.$error.pattern">Not valid</div>
+          </div>
+          <div class="input-box">
+            <div class="input-ico b">
+              <input name="password" value="Пароль" ng-model="mc.reg.pwd" onblur="if(this.value=='') this.value='Пароль';" onfocus="if(this.value=='Пароль') this.value='';" type="password" ng-minlength="4" required ng-pattern="/^[a-z0-9][a-z0-9]+$/" />
+            </div>
+          </div>
+          <div class="help-block" ng-messages="regForm.password.$error" ng-show="regForm.password.$dirty">
+              <div ng-message="required" ng-show="regForm.password.$error.required && !regForm.password.$error.minlength && !regForm.password.$error.pattern">Required</div>
+              <div ng-message="minlength" ng-show="!regForm.password.$error.required && regForm.password.$error.minlength && !regForm.password.$error.pattern">Min 4 characters</div>
+              <div ng-message="pattern" ng-show="!regForm.password.$error.required && !regForm.password.$error.minlength && regForm.password.$error.pattern">Not valid</div>
+          </div>
+          <div class="input-box">
+            <div class="input-ico b">
+              <input name="password2" value="Пароль еще раз" ng-model="mc.reg.pwd2" onblur="if(this.value=='') this.value='Пароль еще раз';" onfocus="if(this.value=='Пароль еще раз') this.value='';" type="password" ng-minlength="4" required ng-pattern="/^[a-z0-9][a-z0-9]+$/" />
+            </div>
+          </div>
+          <div class="help-block" ng-messages="regForm.password2.$error" ng-show="regForm.password2.$dirty">
+              <div ng-message="required" ng-show="regForm.password2.$error.required && !regForm.password2.$error.minlength && !regForm.password2.$error.pattern">Required</div>
+              <div ng-message="minlength" ng-show="!regForm.password2.$error.required && regForm.password2.$error.minlength && !regForm.password2.$error.pattern">Min 4 characters</div>
+              <div ng-message="pattern" ng-show="!regForm.password2.$error.required && !regForm.password2.$error.minlength && regForm.password2.$error.pattern">Not valid</div>
+          </div>
+          <label for="captcha">Введите текст с картинки:</label><br>
+          <input name="captcha" ng-model="mc.reg.captcha" type="text" required /><br>
+          <img class="hint" hint="Обновить" ng-src = "{{mc.captchaImg}}" width="200" height="120" id='captcha-image'/><br>
+          <a href="javascript:void(0);" tabindex="5" ng-click="mc.captcha()">Обновить</a><br>
+          <div class="form_input_pos" input_name="captcha"></div>
+
+          <div class="input-submit">
+            <input type="submit" value="СОЗДАТЬ АККАУНТ">
+          </div>
+          <div class="clr"></div>   
+        </form>
+      </div>
+    </div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
